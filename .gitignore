@@ -10,7 +10,6 @@
 .settings
 .gdbinit
 px4flow_prototype.px4
-px4flow*.px4
 px4flow*.bin
 *.sublime-workspace
 build*/
@@ -22,7 +21,6 @@ libperiph.a
 px4flow
 Build/
 Images/*.bin
-Images/*.px4
 .swp
 .~lock.*
 Archives/*
