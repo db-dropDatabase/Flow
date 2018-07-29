@@ -39,6 +39,8 @@
 
 #pragma once
 
+#define DEBUG_BUILD true
+
 #include <px4_log.h>
 
 /* Get the name of the default value fiven the param name */
