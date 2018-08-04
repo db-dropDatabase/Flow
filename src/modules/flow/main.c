@@ -298,22 +298,14 @@ int main(void)
 	timer[TIMER_PARAMS] = PARAMS_COUNT;
 	timer[TIMER_IMAGE] = global_data.param[PARAM_VIDEO_RATE];
 
-	/* variables */
-	uint32_t counter = 0;
-
-	uavcan_start();
 	/* main loop */
 
 	// logging?
 	//mavlink_msg_log_data_send(MAVLINK_COMM_2, 0, 0, 18, "this string lmao\0");
-	mavlink_msg_statustext_send(MAVLINK_COMM_2, 0, (const char *)"Stringlystrings\0");
-	//PX4_ERROR("Oh SHIT");
+	//mavlink_msg_statustext_send(MAVLINK_COMM_2, 0, (const char *)"Initialized!\0");
 
 	while (1)
 	{
-                PROBE_1(false);
-                uavcan_run();
-                PROBE_1(true);
 		/* reset flow buffers if needed */
 		if(buffer_reset_needed)
 		{
@@ -367,14 +359,6 @@ int main(void)
 		dma_copy_image_buffers(&current_image, &previous_image, image_size, 1);
 
 		//const float focal_length_px = (global_data.param[PARAM_FOCAL_LENGTH_MM]) / (4.0f * 6.0f) * 1000.0f; //original focal lenght: 12mm pixelsize: 6um, binning 4 enabled
-		
-		counter++;
-
-		/* forward flow from other sensors */
-		if (counter % 2)
-		{
-			communication_receive_forward();
-		}
 
 		/* send system state, receive commands */
 		if (send_system_state_now)
@@ -403,6 +387,9 @@ int main(void)
 			communication_parameter_send();
 			send_params_now = false;
 		}
+
+		// may as well right?
+		previous_image[0] = 255;
 
 		/*  transmit raw 8-bit image */
 		if (FLOAT_AS_BOOL(global_data.param[PARAM_USB_SEND_VIDEO])&& send_image_now)
