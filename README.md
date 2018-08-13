@@ -16,7 +16,6 @@ For help, run:
 
 ```
 make help
-
 ```
 
 
@@ -24,7 +23,6 @@ To build, run:
 ```
   make archives - this needs to be done only once
   make
-
 ```
 
 To flash via the PX4 bootloader (first run this command, then connect the board):
